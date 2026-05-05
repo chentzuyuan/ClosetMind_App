@@ -1,0 +1,70 @@
+name: sync-release-bodies
+
+# Treat .github/release-bodies/<tag>.md as the source of truth for the
+# matching release's body. On every push that touches one of those
+# files (or on manual workflow_dispatch), apply the file contents to
+# the corresponding GitHub Release via REST.
+#
+# Why this lives in the *_App repo and not the source repo:
+#   ClosetMind_App is the distribution repo that hosts the actual
+#   GitHub Releases, and GITHUB_TOKEN only has release-write access on
+#   the repo the workflow runs in. Cross-repo updates would need a
+#   personal access token; keeping it in-repo means zero secrets.
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/release-bodies/*.md'
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Apply each release-body file to its tagged release
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+
+            const dir = '.github/release-bodies';
+            if (!fs.existsSync(dir)) {
+              core.info(`${dir} not present; nothing to do.`);
+              return;
+            }
+
+            for (const file of fs.readdirSync(dir)) {
+              if (!file.endsWith('.md')) continue;
+              const tag = file.replace(/\.md$/, '');
+              const body = fs.readFileSync(path.join(dir, file), 'utf8');
+
+              let release;
+              try {
+                release = await github.rest.repos.getReleaseByTag({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  tag,
+                });
+              } catch (e) {
+                core.warning(`No release for tag ${tag}: ${e.message}`);
+                continue;
+              }
+
+              if (release.data.body === body) {
+                core.info(`Release ${tag} body already matches ${file}; skipping.`);
+                continue;
+              }
+
+              await github.rest.repos.updateRelease({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                release_id: release.data.id,
+                body,
+              });
+              core.info(`Updated release ${tag} body from ${file}.`);
+            }
