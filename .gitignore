@@ -1,0 +1,13 @@
+# macOS
+.DS_Store
+
+# Build artifacts (do not commit binaries; upload as Release assets)
+*.dmg
+*.exe
+*.msi
+*.zip
+*.app/
+
+# Local
+.idea/
+.vscode/
