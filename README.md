@@ -1,59 +1,41 @@
-# ClosetMind App
+# OutfitDB (formerly ClosetMind) — early-build archive
 
-A weather- and occasion-aware wardrobe management desktop application
-with rule-based outfit recommendation.
+> **The project has been renamed to OutfitDB and the active repo has
+> moved.** Current versions live at
+> **<https://github.com/chentzuyuan/closetmind>** (will rename to
+> `OutfitDB`). Visit there for the latest macOS DMG / Windows ZIP.
 
-This repository hosts the **packaged application binaries** for macOS
-(`.dmg`) and Windows (`.exe`, planned). Source code lives in a separate
-repository.
+This repository was the original public binaries-only repo from before
+the source code was made public. It still hosts the historical
+**v0.1.0** release for archaeology — every later version (v0.1.1
+onwards) ships from the active repo above instead.
 
-## Download
+## Latest releases
 
-Visit the [Releases page](https://github.com/chentzuyuan/ClosetMind_App/releases)
-to download the latest version for your platform.
+Always grab the most recent build from the active repo:
+
+- **macOS:** <https://github.com/chentzuyuan/closetmind/releases/latest>
+- **Windows:** same page (look for the `OutfitDB-X.Y.Z-windows.zip` asset)
+- **Live demo:** <https://outfitdb.onrender.com/>
+
+The original `closetmind.onrender.com` URL also still works for now.
+
+## Archive: v0.1.0 (May 2026)
+
+The first public build, released under the original "ClosetMind" name.
+Kept here for posterity; do not use for new installs.
 
 | Platform | File | Notes |
 |----------|------|-------|
-| macOS    | `ClosetMind-<version>.dmg` | Apple Silicon / Intel |
-| Windows  | `ClosetMind-Setup-<version>.exe` | Coming soon |
+| macOS    | [`ClosetMind-0.1.0.dmg`](https://github.com/chentzuyuan/ClosetMind_App/releases/download/v0.1.0/ClosetMind-0.1.0.dmg) | Apple Silicon / Intel |
 
-## What does it do?
+## Why the rename
 
-Each morning ClosetMind reads your calendar to determine the day's
-occasion and pulls in the current weather conditions. It then filters
-out unwearable items (dirty or archived) and ranks candidate outfits
-using a rule-based scoring engine across three dimensions:
-
-- **Color harmony** — 60/30/10 color theory
-- **Fabric compatibility** — same-fabric bonus, mixed-fabric
-  reasonableness, warmth adequacy relative to weather
-- **Style consistency** — style-tag coherence and style ↔ occasion fit
-
-The output is one best recommended outfit plus 3–5 ranked alternatives,
-each with a score breakdown and a human-readable explanation.
-
-## Installation
-
-### macOS
-
-1. Download `ClosetMind-<version>.dmg` from
-   [Releases](https://github.com/chentzuyuan/ClosetMind_App/releases).
-2. Double-click the `.dmg` to mount it.
-3. Drag the **ClosetMind** app icon into your `Applications` folder.
-4. The first time you launch it, macOS may ask you to confirm —
-   right-click the app and choose **Open**.
-
-### Windows
-
-Coming soon.
-
-## Project information
-
-This is a school project for **EPPS 6354 — Information Management** at
-UT Dallas.
-
-Live demo (web version): <https://chentzuyuan.github.io/closetmind.html>
+A separate project named **ClosetMindAI** went live on Instagram two
+days before this repo went public, with overlapping use cases.
+Renaming to OutfitDB keeps the two distinct and gives a more honest
+description of what the app actually is — a personal outfit database.
 
 ## License
 
-For educational and demonstration purposes.
+Educational / demonstration use.
